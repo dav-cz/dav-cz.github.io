@@ -12,6 +12,8 @@
 
   setCookie("cookieName", "cookieValue", 1000);
 
+  this.window.postMessage("Vala");
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -19,6 +21,10 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 
+// // Store
+// localStorage.lastname = "Smith";
+// // Retrieve
+// document.getElementById("result").innerHTML = localStorage.lastname;
 </script>
 
 
