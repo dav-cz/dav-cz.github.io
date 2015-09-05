@@ -12,13 +12,17 @@
 
   setCookie("cookieName", "cookieValue", 1000);
 
-  this.window.postMessage("Vala", "http://dav-cz.github.io");
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+window.onload = function() {
+  console.log('server onload');
+  this.window.postMessage("Vala", "http://dav-cz.github.io");	
 }
 
 // // Store
