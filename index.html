@@ -7,6 +7,20 @@
 }
 </style>
 
+<script type="text/javascript">
+  console.log("aahhaa")
+
+  setCookie("cookieName", "cookieValue", 1000);
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+</script>
+
 
 <a href="intent://scan/#Intent;scheme=zxing;package=com.google.zxing.client.android;end"> Take a QR code </a>
 
