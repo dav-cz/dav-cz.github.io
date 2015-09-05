@@ -20,10 +20,27 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 
-window.onload = function() {
-  console.log('server onload');
-  this.window.postMessage("Vala", "*");	
+// window.onload = function() {
+//   console.log('server onload');
+//   this.window.postMessage("Vala", "*");	
+// }
+
+function postMessageB(evt){
+    if(
+        evt.origin
+    ){
+        var foo = evt.data.foo;
+        var bar = evt.ata.bar;
+
+        // affichera dans votre navigateur le message "value1 value2" depuis l'iframe.
+        alert(foor+" "+bar);   
+    }else{
+        return;
+    }
 }
+
+window.addEventListener("message", postMessageB, false);
+//...
 
 // // Store
 // localStorage.lastname = "Smith";
