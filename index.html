@@ -30,10 +30,10 @@ function postMessageB(evt){
         evt.origin
     ){
         var foo = evt.data.foo;
-        var bar = evt.ata.bar;
+        var bar = evt.data.bar;
 
         // affichera dans votre navigateur le message "value1 value2" depuis l'iframe.
-        alert(foor+" "+bar);   
+        alert(foo+" "+bar);   
     }else{
         return;
     }
