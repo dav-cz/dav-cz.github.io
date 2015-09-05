@@ -1,4 +1,4 @@
-<h3>Cardboard SDK iFrame:</h3>
+<h3>SDK iFrame:</h3>
 <div id="messages"></div>
 
 <script type="text/javascript">
@@ -6,9 +6,10 @@
 
 function receiver(message) {
 	console.log("inside iframe, received: " + message.data)
+    console.log("inside iframe, received from " + message.origin)
+
     //get the message container html element (in this case, the messages div)
     var messagecontainer = document.getElementById("messages");
-    var trusteddomain = "http://localhost:8001";
 
     //Get the time of message receipt
     var currenttime = new Date();
@@ -23,10 +24,10 @@ function receiver(message) {
 
 		console.log("inside iframe, updating cookie");
 
-        setCookie("cardboardCookie", message.data, 1000);
+        setCookie("projectCookie", message.data, 1000);
 
 
-        parent.postMessage(getCookie("cardboardCookie"), "*");
+        // parent.postMessage(getCookie("projectCookie"), "*");
 
     } else {
         //if illegal characters are found in the message content, print an error message to the message container
@@ -37,8 +38,8 @@ function receiver(message) {
 //Add an event listener to the window object to catch any message events
 window.addEventListener('message', receiver, false);
 
-if (getCookie("cardboardCookie") == null) {
-  setCookie("cardboardCookie", "initialValue", 1000);
+if (getCookie("projectCookie") == null) {
+  setCookie("projectCookie", "initialValue", 1000);
 }
 
 
@@ -67,7 +68,7 @@ function getCookie(cname) {
 }
 
 
-parent.postMessage(getCookie("cardboardCookie"), "*");
+parent.postMessage(getCookie("projectCookie"), "*");
 
 </script>
 

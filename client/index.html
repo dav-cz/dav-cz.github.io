@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+
+<h1>Brand new project</h1>
+<div id="cookie_value"></div>
+<div id="controls">
+    <label>Enter your message to be sent to the iframe: </label>
+    <input type="text" id="message" />
+    <button id="sendmessage" onclick="sendMessage();">Send Message</button>
+    <p>(Note: Only alphanumeric characters will be printed!)</p>
+</div>
+<h3>Remote Script iframe</h3>
+<iframe id="remotepage" src="http://dbc39845.ngrok.io"></iframe>
+
+
+<script type="text/javascript">
+function sendMessage() {
+    //select the iframe containing the message receiver remote script
+    var remoteframe = document.getElementById("remotepage");
+    
+    //Get the users message from the message input box
+    var message = document.getElementById("message").value;
+    
+    //Check that the message is not blank
+    if (message !== "") {
+    remoteframe.contentWindow.postMessage(message, 'http://dbc39845.ngrok.io');
+    }
+    else {
+         alert("You cannot send a blank message!");   
+    }
+}
+
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+// Listen to message from child window
+eventer(messageEvent,function(e) {
+    var key = e.message ? "message" : "data";
+    var data = e[key];
+
+    console.log("in parent, message from iframe: " + data);
+    var messagecontainer = document.getElementById("cookie_value");
+    messagecontainer.innerHTML = data;
+
+}, false);
+
+</script>
+
+
+</html>
