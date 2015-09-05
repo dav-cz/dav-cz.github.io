@@ -1,18 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html>
-
-<style>
-* {
-  font-size: 150%
-}
-</style>
+<h3>Messages Received:</h3>
+<div id="messages"></div>
 
 <script type="text/javascript">
-localStorage.setItem('monCul', 'SurLaCommode');
-localStorage.setItem('timestamp', (new Date()).getTime());
+//This function is called whenever the window receives a message event, the message object is passed in as it's only parameter
+
+function receiver(message) {
+    //get the message container html element (in this case, the messages div)
+    var messagecontainer = document.getElementById("messages");
+    var trusteddomain = "http://fiddle.jshell.net";
+
+    //Get the time of message receipt
+    var currenttime = new Date();
+    //format the time into a user readable format
+    var formattedtime = currenttime.getHours() + ":" + currenttime.getMinutes() + ":" + currenttime.getSeconds();
+
+
+    //inspect the origin property of the message event to ensure the message originates from the same domain)
+    if (message.origin == trusteddomain) {
+        var msgcontent = message.data;
+        //check the content of the message only contains letters and numbers to prevent xss attacks
+        if (msgcontent.match(/^[A-Za-z0-9]+$/)) {
+            //if no illegal characters are found in the message, print it to the message container div along with the time of receipt
+            messagecontainer.innerHTML += "message received @ " + formattedtime + ": " + message.data + "<br />";
+        } else {
+            //if illegal characters are found in the message content, print an error message to the message container
+            messagecontainer.innerHTML += "Illegal characters found in the message received @ " + formattedtime + ". Message rejected<br/>";
+        }
+    } else {
+        messagecontainer.innerHTML += "Message received from un-trusted domain:" + message.origin + "<br />";
+    }
+}
+
+//Add an event listener to the window object to catch any message events
+window.addEventListener('message', receiver, false);
 </script>
 
-
-<a href="intent://scan/#Intent;scheme=zxing;package=com.google.zxing.client.android;end"> Take a QR code </a>
-
-</html>
